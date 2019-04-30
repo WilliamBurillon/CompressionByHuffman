@@ -1,0 +1,3 @@
+this is an example of a huffman tree
+deuxieme ligne
+troisieme ligne
