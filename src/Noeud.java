@@ -1,9 +1,11 @@
 import java.util.ArrayList;
 
 class Noeud <E> implements Cloneable{
-   private String lettre;
-   private Noeud<E> gauche, droit,pere;
-   private int val;
+   
+	
+	private String lettre;
+	private Noeud<E> gauche, droit,pere;
+	private int val;
    
    
    public Noeud (){ 
@@ -14,7 +16,7 @@ class Noeud <E> implements Cloneable{
       pere = null;
    }
    
-   // methode pour les feuilles avec la lettre qu'elles représente
+      //Constructor for leafs, with the letters
    public Noeud (String lettre,int val){
 	   this.lettre=lettre;
 	   this.val=val;
@@ -23,9 +25,10 @@ class Noeud <E> implements Cloneable{
 	   droit = null;
 	   pere = null;
 	   
-}
+   }
 
-   //méthode pour les noeuds sans lettre
+   
+   //constructor for node with character
    public Noeud ( int val, Noeud<E> g,
                   Noeud<E> d){
       this.val = val;
@@ -34,36 +37,22 @@ class Noeud <E> implements Cloneable{
       droit = d;
       pere=null;
    }
-  /* 
-   public Object clone() throws CloneNotSupportedException{
-      // copie en profondeur d’un noeud
-      Noeud<E> g = null;
-      if( gauche != null ) g = (Noeud<E>)gauche.clone();
-      Noeud<E> d = null;
-      if( droit != null ) d = (Noeud<E>)droit.clone();
-      return new Noeud<E>(element, g, d);
-   }
-   */
+   //method that allow us to clone a Node 
    public Noeud clone() {
 	   Noeud node = null;
 	   try {
-	    	// On récupère l'instance à renvoyer par l'appel de la 
-	      	// méthode super.clone()
+	    	
+		   //getting then node instance, and it values but not it adress in memory  
 	      	node = (Noeud) super.clone();
 	    } catch(CloneNotSupportedException cnse) {
-	      	// Ne devrait jamais arriver car nous implémentons 
-	      	// l'interface Cloneable
+	      	
 	      	cnse.printStackTrace(System.err);
 	    }
 	    
-	    // On clone l'attribut de type Patronyme qui n'est pas immuable.
-	    //personne.patronyme = (Patronyme) patronyme.clone();
-	    
-	    // on renvoie le clone
 	    return node;
 	}
    
-
+// some getters and setters
 public String getLettre() {
 	return lettre;
 }
@@ -103,7 +92,7 @@ public int getVal() {
 public void setVal(int val) {
 	this.val = val;
 }
-
+// some useful function for tree
 public boolean isLeaf() {
 	boolean res = false;
 	if (this.gauche == null && this.droit==null){
@@ -127,6 +116,8 @@ public boolean isRoot() {
 	}
 	return res;
 }
+
+
 public ArrayList<Noeud> nodeList(ArrayList<String[]> list){
 	
 	ArrayList<Noeud> nodeList = new ArrayList<Noeud>();
@@ -144,14 +135,15 @@ public ArrayList<Noeud> nodeList(ArrayList<String[]> list){
 	        		 
 }
 
+
 public String deepPath(String path, String l ) {
-	//System.out.println(this.lettre);
-	//System.out.println(path);
-	//Dire qu'on a parcourut le noeud
-//	System.out.println(this.isRoot());
+	/* the function of this recursibe method is to make a deep path to find the binary code of a char
+	 * In : String l 
+	 * In - Out : the path, initiate to ""
+	 */
 	
 	
-	
+	// this 3 tests is useful for the algorithm to avoid backwards
 	if(this.getVal()==-2) {
 		return "not found";
 	}
@@ -160,28 +152,31 @@ public String deepPath(String path, String l ) {
 		this.val =-2;
 		
 	}
-	//System.out.println(this.val);
+	
 	if(this.getVal()>=0) {
 		
 	
 	this.setVal(-1);
 	}
+	//when the char is find, return the path (the binary code of l)
 	if (this.isFound(l)) {
 		return path;
 	}
 	
 	else {
-		
+		//if the actual node has a left child and it has never been wandered, then add 0
+		// to the path 
 		if (this.gauche != null && this.gauche.getVal()!=-1) {
-			//System.out.println("a un gauche");
 			return this.gauche.deepPath(path+"0" , l);
 		}
+		//if the actual node has a right child and it has never been wandered, then add 1
+		// to the path 
 		else if ( this.droit!= null && this.droit.getVal()!=-1 )
 			{
-			//System.out.println("a pas de gauche");
 			return this.droit.deepPath(path + "1", l);
 		}
-		
+		//if the father has ever been wandered, so go to father and delete the last bit from
+		//the path 
 		else if (this.pere.getVal() == -1 ){
 			path = path.substring(0, path.length()-1);
 			return this.pere.deepPath(path, l);
