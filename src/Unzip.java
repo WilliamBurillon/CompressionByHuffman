@@ -4,50 +4,50 @@ import java.io.FileReader;
 import java.io.InputStreamReader;
 
 public class Unzip {
+		
+		/* this class is made to unzip a compressed file*/
+	
 		public String leFichier;
-		//public String leRes;
 		
 		
 		public Unzip(String leFichier) {//,String leRes ) {
 			this.leFichier=leFichier;
-			//this.leRes=leRes;
+			
 		}
 		
 		
 		public String unzipToString() {
+			/* this function return a String which represent the binary code a compressed text
+			 * In : the compresssed text
+			 *Out : a String of bit 
+			 */
 				String res = "";
 			try {
 			
-				//BufferedReader br = new BufferedReader(new FileReader(this.leFichier));
-				//FileReader fr = new FileReader(this.leFichier);
+				// read the compressed text in ASCII Iso 8859 1 
 				BufferedReader br  = new BufferedReader(
 					    new InputStreamReader(new FileInputStream(this.leFichier), "ISO-8859-1"));
 				String line ;
 				
 				while ((line = br.readLine()) != null) {
-					
+					//For each line 
 					for (int i=0;i<line.length();i++ ) {
+						//gettin the char by char 
 						char leChar = line.charAt(i);
-						//System.out.println("leChar" +leChar);
-						//System.out.println((int)leChar);
+						// cast it into a String which represents the binary code of the char
 						String leRes = Integer.toBinaryString(leChar);
-						//System.out.println(leRes);
+						
+						// if the res is not a byte, so complete it with 0 at the begining
 						if (leRes.length()<8) {
 						String res3=leRes;
 						while (res3.length()<8) {
 							res3 = "0" + res3;
-							
-							
 						}
 						res = res+ res3;
-						//leRes="";
-						
 						}
 						
 						else {
-							res = res+leRes;
-							//leRes="";
-							
+							res = res+leRes;		
 						}
 						}
 					}
