@@ -11,6 +11,9 @@ import java.util.ArrayList;
 
 public class CompressFile {
 		
+	
+	/* the function of this class is to compress a binary File*/
+	
 		private String name;
 		private String encodeFile;
 		
@@ -19,48 +22,30 @@ public class CompressFile {
 			this.encodeFile=encodeFile;
 		}
 		
-		/*public void binFileToArray() {
-				ArrayList<Byte> byteArray = new ArrayList<Byte>();
-			
-			try {
-				//BufferedWriter writer = new BufferedWriter(new FileWriter(new File("decodetext.txt"),true));
-				BufferedReader br = new BufferedReader(new FileReader(this.name));
-				
-				
-				String line = br.readLine();
-				while (line != null) {
-					String by = "";
-					while (by.length()<7)
-						
-				}
-				
-			}catch  (Exception e){
-				System.out.println(e.toString());
-				}
-		}*/
+		
 		
 		public void encodeFile() {
-			
+			/* In : binary File
+			 * Out : a compress file in ASCII ISO 8859 1 
+			 */
 			
 			try {
-			//	Charset cs = Charset.forName("ASCII");
+				
+				//Creation of a File, will be write in ASCII Iso 8859 1 
+				//Creation of a BufferedReader to read the binary file 
 				File file = new File(encodeFile+"_compressed.txt");
-		//		BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), cs));
-			   PrintWriter writer1 = new PrintWriter(file,"ISO-8859-1");
-			//	BufferedWriter writer = new BufferedWriter(new FileWriter(new File("compressedtext.txt"),true));
+				PrintWriter writer1 = new PrintWriter(file,"ISO-8859-1");
 				BufferedReader br = new BufferedReader(new FileReader(this.name));
 				String line = br.readLine();
 				String by="";
 				for (int i = 0; i<line.length();i++) {
+					//read bit by bit
 					by = by + line.charAt(i);
-					
+					// if there is a byte 
 					if( by.length()==8){
-					
-						//System.out.println("by : " +by);
+						//get it int value and cast it into a char, and write into the file
 						int leByte = Integer.parseInt(by,2);
 						char leChar = (char)leByte;
-						//System.out.println(leChar);
-						//System.out.println(Integer.toBinaryString(leChar));
 						writer1.write(leChar);
 						by="";
 					}
@@ -68,12 +53,11 @@ public class CompressFile {
 					
 				}
 				if (by.length()>0 && by.length()<8)	{
-					//System.out.println("oker");
+					// to the end of the binary file, add some 0 to get a byte
 					String res3=by;
 					while (res3.length()<8) {
 						res3 =   res3 + "0";
 					}
-					//System.out.println(res3);
 					int leByte2 = Integer.parseInt(res3,2);
 					char leChar2 = (char) leByte2;
 					writer1.write(leChar2);
