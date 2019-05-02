@@ -11,6 +11,8 @@ import java.io.BufferedWriter;
 
 
 public class LectureData {
+	/* the function of this class is to read data from files*/
+	
 	private String fileName;
 	
 	public LectureData (String fileName) {
@@ -19,6 +21,8 @@ public class LectureData {
 	
 	public ArrayList<String[]> arrayListValue(){
 		
+		// this methode is made to read the frequency of chars which are in a text
+		// return a ArrayList<String[]> with String{Char,frequency}
 		ArrayList<String[]> al = new ArrayList<String[]>();
 		try {
 			BufferedReader br = new BufferedReader(new FileReader(this.fileName));
@@ -28,12 +32,12 @@ public class LectureData {
 			   // process the line.
 				
 				if(line.equals("")) {
-					System.out.println("on est sur un /n");
+					
 					String[] nLine = {"\n", br.readLine().substring(1)};
 					al.add(nLine);
 				}
 				else if (line.charAt(0)== ' ') {
-					System.out.println("la line" + line);
+					
 					String[] laLine = {  " ", line.substring(2)};
 					al.add(laLine);
 				}
@@ -44,10 +48,7 @@ public class LectureData {
 					
 				}
 				
-				/*else if (line.length()==1) {
-					
-				}*/
-				   
+			
 				
 			}
 			
@@ -58,6 +59,8 @@ public class LectureData {
 				}
 		return al;
 	}
+	
+	
 	public ArrayList<String[]> arrayListValue2(){
 			
 			ArrayList<String[]> al = new ArrayList<String[]>();
@@ -89,6 +92,13 @@ public class LectureData {
 		
 	
 	public ArrayList<String[]> dicoText(){
+		/* the function of this method is to reading a text, and return the frequency related
+		 *to the char in the text
+		 * In : Text File
+		 *Out : ArrayList<String[]>
+		 *		File with the char Freq 
+		 */
+		
 		
 		ArrayList<String> lesLettre = new ArrayList<String>();
 		ArrayList<Integer> freqs = new ArrayList<Integer>();
