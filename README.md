@@ -18,7 +18,6 @@ if you select 2), you will have 2 choices :
 1) encode a .txt file : you need the .txt file
 2) decode a .dat file : you need the .dat compressed file and the dictionnary which represents the binary code of each chars
 
-
-##More Informations
+## More Informations
 
 If you want to know more information about the project, let's check the powerpoint (In French) or send me an Email. 
