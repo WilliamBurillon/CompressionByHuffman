@@ -56,11 +56,11 @@ public class CompressFile {
 					
 					if( by.length()==8){
 					
-						System.out.println("by : " +by);
+						//System.out.println("by : " +by);
 						int leByte = Integer.parseInt(by,2);
 						char leChar = (char)leByte;
-						System.out.println(leChar);
-						System.out.println(Integer.toBinaryString(leChar));
+						//System.out.println(leChar);
+						//System.out.println(Integer.toBinaryString(leChar));
 						writer1.write(leChar);
 						by="";
 					}
@@ -68,12 +68,12 @@ public class CompressFile {
 					
 				}
 				if (by.length()>0 && by.length()<8)	{
-					System.out.println("oker");
+					//System.out.println("oker");
 					String res3=by;
 					while (res3.length()<8) {
 						res3 =   res3 + "0";
 					}
-					System.out.println(res3);
+					//System.out.println(res3);
 					int leByte2 = Integer.parseInt(res3,2);
 					char leChar2 = (char) leByte2;
 					writer1.write(leChar2);
